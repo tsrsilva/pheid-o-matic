@@ -1,0 +1,13 @@
+# Use R language
+language: r
+
+#Define R-versions
+r:
+  - oldrel
+  - release
+  - devel
+
+# Set one of your dependencies from CRAN
+r_packages: shiny
+
+sudo: false
