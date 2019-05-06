@@ -1,13 +1,12 @@
 # Use R language
 language: r
 
-#Define R-versions
-r:
-  - oldrel
-  - release
-  - devel
-
-# Set one of your dependencies from CRAN
-r_packages: shiny
+cache: packages
 
 sudo: false
+
+addons:
+  apt:
+    packages:
+      - libgsl0-dev # for topicmodels
+      - libxml2-dev # for XML, a dependency of quanteda
