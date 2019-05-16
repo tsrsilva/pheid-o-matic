@@ -25,14 +25,25 @@ ui <- fluidPage(
                           
                           )
                 
-                )
+                ),
+  
+  #reading all Pheidole dataset
+  original<-read.csv(file="/home/tsrsilva/Documents/repos/pheid-o-matic/pheidole.csv", header=T, sep = ";", na.strings = "na"),
+  original<-rbind(original,ant),
+  row.names(original)[dim(original)[1]]="unknown ant",
+  data    <-log(original),
+  
+  #calculating PCA
+  PCA <- princomp(~ maHW + maHL + maSL + maEL + maPW + miHW + miHL + miSL + miEL + miPW,
+                  data = data, na.action=na.exclude, cor = TRUE),
+  PCAplot     <- cbind(PCA$scores[,1], PCA$scores[,2]), colnames(PCAplot)=c("PC1", "PC2")
   
 )
 
 server <- function(input, output) {
   output$plot <- renderPlot({
     title <- "100 random normal values"
-    plot(rnorm(input$num), main = title)
+    hist(rnorm(input$num), main = title)
   })
 }
 
