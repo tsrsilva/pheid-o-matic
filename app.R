@@ -1,57 +1,39 @@
 library(shiny)
+library(ggplot2)
+library(gridExtra)
 
-# Define UI for app
 
 ui <- fluidPage(
   
-  # App title ----
+  #Application title
   titlePanel("Pheid-o-matic"),
+  sidebarLayout(position = "left",
+                sidebarPanel("sidebar panel",
+                             numericInput(inputId = "num1",
+                                          label = "Add a value",
+                                          value = 25, min = 1, max = 100),
+                             numericInput(inputId = "num2",
+                                          label = "Add a value",
+                                          value = 25, min = 1, max = 100),
+                             numericInput(inputId = "num3",
+                                          label = "Add a value",
+                                          value = 25, min = 1, max = 100)
+                             ),
+                
+                mainPanel("main panel",
+                          column(6, plotOutput(outputId = "plot", width = "500px", height = "400px"))
+                          
+                          )
+                
+                )
   
-  # Sidebar layout with input and output definitions ----
-  sidebarLayout(
-    
-    # Sidebar panel for inputs ----
-    sidebarPanel(
-      
-      # Input: Slider for the number of nums ----
-      numericInput(inputId = "nums",
-                  label = "maHW:",
-                  min = 0,
-                  max = 10,
-                  value = 0.5)
-      
-    ),
-    
-    # Main panel for displaying outputs ----
-    mainPanel(
-      
-      # Output: Histogram ----
-      plotOutput(outputId = "distPlot")
-      
-    )
-  )
 )
 
-# Define server logic required to draw a histogram ----
 server <- function(input, output) {
-  # Histogram ---
-  # This expression that generates a histogram is wrapped in a call
-  # to renderPlot to indicate that:
-  #
-  # 1. It is "reactive" and therefore should be automatically
-  #    re-executed when inputs (input$nums) change
-  # 2. Its output type is a plot
-  output$distPlot <- renderPlot({
-    
-    x    <- faithful$waiting
-    nums <- seq(min(x), max(x), length.out = input$nums + 1)
-    
-    hist(x, breaks = nums, col = "#75AADB", border = "white",
-         xlab = "Waiting time to next eruption (in mins)",
-         main = "Histogram of waiting times") 
-    
+  output$plot <- renderPlot({
+    title <- "100 random normal values"
+    plot(rnorm(input$num), main = title)
   })
 }
 
-# Run the app ----
 shinyApp(ui = ui, server = server)
