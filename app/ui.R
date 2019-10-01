@@ -9,9 +9,12 @@ library(shiny)
 #Bootstrap the user interface (UI)
 ui <- fluidPage("Pheid-o-matic",
                 #Use different input types to suit your needs
-                sliderInput(inputId = "num", 
-                            label = "Choose a number", 
+                numericInput(inputId = "num", 
+                            label = "Insert a number", 
                             value = 25, min = 1, max = 100),
+                numericInput(inputId = "num",
+                             label = "Insert a number",
+                             value = 25, min = 1, max = 100),
                 #Use different output types to suit your needs
                 plotOutput("hist")
 )
