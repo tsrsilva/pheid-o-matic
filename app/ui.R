@@ -15,3 +15,6 @@ ui <- fluidPage("Pheid-o-matic",
                 #Use different output types to suit your needs
                 plotOutput("hist")
 )
+
+#Run app after starting the server
+runApp('app')
