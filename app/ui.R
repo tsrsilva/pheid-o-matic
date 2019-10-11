@@ -16,5 +16,5 @@ ui <- fluidPage("Pheid-o-matic",
                              label = "Insert a number",
                              value = 25, min = 1, max = 100),
                 #Use different output types to suit your needs
-                plotOutput("hist")
+                plotOutput("plot")
 )
